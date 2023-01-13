@@ -5,23 +5,23 @@ export default function NavBar() {
   const router = useRouter();
   return (
     <nav>
-      <Link href="/">
+      <Link href="/" style={{ textDecoration: "none" }}>
         <span className={router.pathname === "/" ? "active" : ""}>Home</span>
       </Link>
-      <Link href="/about">
+      <Link href="/about" style={{ textDecoration: "none" }}>
         <span className={router.pathname === "/about" ? "active" : ""}>
           About
         </span>
       </Link>
       <style jsx>{`
-        nav {
+        /* nav {
           background-color: tomato;
-        }
-        span {
+        } */
+        /* link {
           text-decoration: none:
-        }
-        .active{
-          color: yellow;
+        } */
+        .active {
+          color: tomato;
         }
       `}</style>
     </nav>
