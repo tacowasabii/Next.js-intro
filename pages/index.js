@@ -1,6 +1,6 @@
 import Link from "next/link";
-import Image from "next/image";
 import styled from "styled-components";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import Seo from "../components/Seo";
 
@@ -17,18 +17,16 @@ export default function Home({ results }) {
           onClick={() => onClick(movie.id, movie.original_title)}
           className="movie"
           key={movie.id}
+          style={{ position: "relative" }}
         >
-          <span className="img">
+          <MovieImg>
             <Image
               src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
               alt="img"
-              width={100}
-              height={100}
-              // style={{
-              //   borderRadius: 12,
-              // }}
+              layout="fill"
+              className="img"
             />
-          </span>
+          </MovieImg>
           <h4>
             <Link href={`/movies/${movie.original_title}/${movie.id}`}>
               <span>{movie.original_title}</span>
@@ -40,13 +38,15 @@ export default function Home({ results }) {
         .container {
           display: grid;
           grid-template-columns: 1fr 1fr;
+          grid-auto-rows: 320px;
           padding: 20px;
-          gap: 20px;
+          column-gap: 30px;
+          row-gap: 70px;
         }
         .movie {
           cursor: pointer;
         }
-        .movie img {
+        .movie .img {
           max-width: 100%;
           border-radius: 12px;
           transition: transform 0.2s ease-in-out;
@@ -58,11 +58,26 @@ export default function Home({ results }) {
         .movie h4 {
           font-size: 18px;
           text-align: center;
+          position: relative;
+          top: 310px;
         }
       `}</style>
     </div>
   );
 }
+
+const MovieImg = styled.div`
+  .img {
+    max-width: 100%;
+    border-radius: 12px;
+    transition: transform 0.2s ease-in-out;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+
+    :hover {
+      transform: scale(1.05) translateY(-10px);
+    }
+  }
+`;
 
 export async function getServerSideProps() {
   const { results } = await (
